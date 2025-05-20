@@ -26,6 +26,16 @@
       color: white;
       text-decoration: none;
       font-weight: bold;
+      position: relative;
+    }
+    #cart-status {
+      background-color: red;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      position: absolute;
+      top: -8px;
+      right: -12px;
     }
     .products {
       display: flex;
@@ -45,6 +55,17 @@
       width: 100%;
       height: auto;
     }
+    .product button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .product button:hover {
+      background-color: #218838;
+    }
     footer {
       background-color: #333;
       color: white;
@@ -62,42 +83,66 @@
 
 <nav>
   <a href="#">Купить</a>
-  <a href="#">Корзина</a>
   <a href="#">Контакты</a>
   <a href="#">Прочее</a>
+  <a href="#">Корзина <span id="cart-status">0</span></a>
 </nav>
 
 <section class="products">
-  <div class="product">
+  <div class="product" data-name="Футболка" data-price="1200">
     <img src="https://via.placeholder.com/200x250?text=Футболка" alt="Футболка">
     <h3>Футболка</h3>
     <p>Цена: 1 200 ₽</p>
+    <button>Добавить в корзину</button>
   </div>
-  <div class="product">
+  <div class="product" data-name="Джинсы" data-price="2500">
     <img src="https://via.placeholder.com/200x250?text=Джинсы" alt="Джинсы">
     <h3>Джинсы</h3>
     <p>Цена: 2 500 ₽</p>
+    <button>Добавить в корзину</button>
   </div>
-  <div class="product">
+  <div class="product" data-name="Пальто" data-price="5000">
     <img src="https://via.placeholder.com/200x250?text=Пальто" alt="Пальто">
     <h3>Пальто</h3>
     <p>Цена: 5 000 ₽</p>
+    <button>Добавить в корзину</button>
   </div>
-  <div class="product">
+  <div class="product" data-name="Кроссовки" data-price="3200">
     <img src="https://via.placeholder.com/200x250?text=Кроссовки" alt="Кроссовки">
     <h3>Кроссовки</h3>
     <p>Цена: 3 200 ₽</p>
+    <button>Добавить в корзину</button>
   </div>
-  <div class="product">
+  <div class="product" data-name="Рубашка" data-price="1800">
     <img src="https://via.placeholder.com/200x250?text=Рубашка" alt="Рубашка">
     <h3>Рубашка</h3>
     <p>Цена: 1 800 ₽</p>
+    <button>Добавить в корзину</button>
   </div>
 </section>
 
 <footer>
   <p>&copy; 2025 Магазин одежды. Все права защищены.</p>
 </footer>
+
+<script>
+  let cartCount = 0;
+  let cartTotal = 0;
+
+  const cartStatus = document.getElementById('cart-status');
+  const buttons = document.querySelectorAll('.product button');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const product = button.closest('.product');
+      const price = parseInt(product.getAttribute('data-price'));
+      cartCount++;
+      cartTotal += price;
+      cartStatus.textContent = cartCount;
+      alert(`Товар добавлен! В корзине: ${cartCount} шт. Сумма: ${cartTotal} ₽`);
+    });
+  });
+</script>
 
 </body>
 </html>
